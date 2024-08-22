@@ -11,11 +11,54 @@ made by speedsterkawaii <3
 -- * setting up do not modify
 
 -- modify these to your likings 
-local exploit = "BOBLOX" --exploit name goes here
+local exploit = "DUMMY" --exploit name goes here
 local version = "6.9"
 local identity = 3 --dont change it; makes your job easier
 
--- * misc funcs (found in unc)
+
+
+
+
+
+
+
+
+-- * DO NOT TOUCH unless your modifying 
+
+-- * main funcs 
+
+function getscripts()
+    local scripts = {}
+
+    local function scan_script(parent)
+        for _, child in ipairs(parent:GetChildren()) do
+            if child:IsA("LocalScript") or child:IsA("ModuleScript") then
+                table.insert(scripts, child)
+            end
+            findScripts(child)
+        end
+    end
+
+    scan_script(game)--we can change it to find it in more services though
+
+    return scripts
+end
+
+-- Example usage
+
+
+function getthreadidentity()
+    return identity
+end
+
+function setthreadidentity(identity_x)
+    if identity_x >= 0 and identity_x <= 7 then --we shouldnt allow negative or above lvl 8
+        identity = identity_x
+    else
+        error("Did not set identity")
+    end
+end
+
 
 function identifyexecutor()
     local name = exploit
@@ -129,6 +172,12 @@ crypt.base64decode = crypt.base64decode
 crypt.base64_decode = crypt.base64decode
 crypt.base64decode = crypt.base64decode
 crypt.base64_decode = crypt.base64decode
+
+getidentity = getthreadidentity
+getthreadcontext = getthreadidentity
+
+setidentity = setthreadidentity
+setthreadcontext = setthreadidentity
 
 function toclipboard(...)
   return setclipboard(...)
